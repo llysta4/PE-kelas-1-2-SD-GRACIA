@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEKAN EVALUASI TENGAH SEMESTER GANJIL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="sd.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-title">PEKAN EVALUASI TENGAH SEMESTER</div>
+        <div class="nav-tabs">
+            <button class="tab-button active" onclick="showTab('data')">Data Siswa</button>
+            <button class="tab-button" onclick="showTab('input')">Input Nilai</button>
+        </div>
+    </nav>
+
+    <div id="data" class="tab-content active">
+        <h2>Daftar Nilai Siswa</h2>
+        <div class="table-responsive">
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>NIS</th>
+                        <th>NISN</th>
+                        <th>Kelas</th>
+                        <th>B. Indo</th>
+                        <th>Mat.</th>
+                        <th>IPA</th>
+                        <th>IPS</th>
+                        <th>PP</th>
+                        <th>Seni Budaya</th>
+                        <th>PJOK</th>
+                        <th>Agama</th>
+                        <th>B. Inggris</th>
+                        <th>SBdP</th>
+                        <th>Mulok</th>
+                        <th>Rata-Rata</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="input" class="tab-content">
+        <h2>Input Data dan Nilai Siswa</h2>
+        <input type="hidden" id="editIndex" value="-1"> 
+        <form id="inputForm">
+
+            <fieldset class="data-sekolah-group">
+                <legend>Data Sekolah & Tahun Ajaran</legend>
+                <div class="form-group"><label for="nama_sekolah">Nama Sekolah:</label><input type="text" id="nama_sekolah" required></div>
+                <div class="form-group"><label for="alamat_sekolah">Alamat Sekolah:</label><input type="text" id="alamat_sekolah" required></div>
+                <div class="form-group"><label for="tahun_ajaran">Tahun Ajaran:</label><input type="text" id="tahun_ajaran" placeholder="Contoh: 2024/2025" required></div>
+                <div class="form-group"><label for="fase">Fase:</label><input type="text" id="fase" placeholder="Contoh: Fase A" required></div>
+            </fieldset>
+
+            <fieldset class="data-siswa-group">
+                <legend>Data Siswa</legend>
+                <div class="form-group"><label for="nama">Nama:</label><input type="text" id="nama" required></div>
+                <div class="form-group"><label for="nis">NIS:</label><input type="text" id="nis" required></div>
+                <div class="form-group"><label for="nisn">NISN:</label><input type="text" id="nisn" required></div>
+                <div class="form-group">
+                    <label for="kelas">Kelas:</label>
+                    <select id="kelas" required>
+                        <option value="1">Kelas 1</option>
+                        <option value="2">Kelas 2</option>
+                    </select>
+                </div>
+            </fieldset>
+
+            <fieldset class="nilai-mapel-group-dynamic">
+                <legend>Input Nilai Mata Pelajaran</legend>
+                
+                <div class="mapel-container" data-mapel-key="bindo">
+                    <h4>1. Bahasa Indonesia</h4>
+                    <div class="tema-inputs" data-mapel="bindo"></div>
+                    <button type="button" class="add-tema-button" onclick="addTemaInput('bindo')">➕ Tambah Tema</button>
+                    <div class="form-group mapel-keterangan">
+                        <label for="ket_bindo">Keterangan:</label>
+                        <textarea id="ket_bindo" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="mapel-container" data-mapel-key="mat">
+                    <h4>2. Matematika</h4>
+                    <div class="tema-inputs" data-mapel="mat"></div>
+                    <button type="button" class="add-tema-button" onclick="addTemaInput('mat')">➕ Tambah Tema</button>
+                    <div class="form-group mapel-keterangan">
+                        <label for="ket_mat">Keterangan:</label>
+                        <textarea id="ket_mat" rows="2"></textarea>
+                    </div>
+                </div>
+                
+                <div class="mapel-container" data-mapel-key="ipa">
+                    <h4>3. IPA</h4>
+                    <div class="tema-inputs" data-mapel="ipa"></div>
+                    <button type="button" class="add-tema-button" onclick="addTemaInput('ipa')">➕ Tambah Tema</button>
+                    <div class="form-group mapel-keterangan">
+                        <label for="ket_ipa">Keterangan:</label>
+                        <textarea id="ket_ipa" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="mapel-container" data-mapel-key="ips">
+                    <h4>4. IPS</h4>
+                    <div class="tema-inputs" data-mapel="ips"></div>
+                    <button type="button" class="add-tema-button" onclick="addTemaInput('ips')">➕ Tambah Tema</button>
+                    <div class="form-group mapel-keterangan">
+                        <label for="ket_ips">Keteranga:</label>
+                        <textarea id="ket_ips" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="mapel-container" data-mapel-key="ppkn">
+                    <h4>5. PP</h4>
+                    <div class="tema-inputs" data-mapel="ppkn"></div>
+                    <button type="button" class="add-tema-button" onclick="addTemaInput('ppkn')">➕ Tambah Tema</button>
+                    <div class="form-group mapel-keterangan">
+                        <label for="ket_ppkn">Keterangan:</label>
+                        <textarea id="ket_ppkn" rows="2"></textarea>
+                    </div>
+                </div>
+                
+                <div class="mapel-container" data-mapel-key="seni">
+                    <h4>6. Seni Budaya</h4>
+                    <div class="tema-inputs" data-mapel="seni"></div>
+                    <button type="button" class="add-tema-button" onclick="addTemaInput('seni')">➕ Tambah Tema</button>
+                    <div class="form-group mapel-keterangan">
+                        <label for="ket_seni">Keterangan:</label>
+                        <textarea id="ket_seni" rows="2"></textarea>
+                    </div>
+                </div>
+                
+                <div class="mapel-container" data-mapel-key="pjok">
+                    <h4>7. PJOK</h4>
+                    <div class="tema-inputs" data-mapel="pjok"></div>
+                    <button type="button" class="add-tema-button" onclick="addTemaInput('pjok')">➕ Tambah Tema</button>
+                    <div class="form-group mapel-keterangan">
+                        <label for="ket_pjok">Keterangan:</label>
+                        <textarea id="ket_pjok" rows="2"></textarea>
+                    </div>
+                </div>
+                
+                <div class="mapel-container" data-mapel-key="agama">
+                    <h4>8. Agama</h4>
+                    <div class="tema-inputs" data-mapel="agama"></div>
+                    <button type="button" class="add-tema-button" onclick="addTemaInput('agama')">➕ Tambah Tema</button>
+                    <div class="form-group mapel-keterangan">
+                        <label for="ket_agama">Keterangan:</label>
+                        <textarea id="ket_agama" rows="2"></textarea>
+                    </div>
+                </div>
+                
+                <div class="mapel-container" data-mapel-key="bing">
+                    <h4>9. Bahasa Inggris</h4>
+                    <div class="tema-inputs" data-mapel="bing"></div>
+                    <button type="button" class="add-tema-button" onclick="addTemaInput('bing')">➕ Tambah Tema</button>
+                    <div class="form-group mapel-keterangan">
+                        <label for="ket_bing">Keterangan:</label>
+                        <textarea id="ket_bing" rows="2"></textarea>
+                    </div>
+                </div>
+                
+                <div class="mapel-container" data-mapel-key="sbdp">
+                    <h4>10. SBdP</h4>
+                    <div class="tema-inputs" data-mapel="sbdp"></div>
+                    <button type="button" class="add-tema-button" onclick="addTemaInput('sbdp')">➕ Tambah Tema</button>
+                    <div class="form-group mapel-keterangan">
+                        <label for="ket_sbdp">Keterangan:</label>
+                        <textarea id="ket_sbdp" rows="2"></textarea>
+                    </div>
+                </div>
+                
+                <div class="mapel-container" data-mapel-key="mulok">
+                    <h4>11. Mulok</h4>
+                    <div class="tema-inputs" data-mapel="mulok"></div>
+                    <button type="button" class="add-tema-button" onclick="addTemaInput('mulok')">➕ Tambah Tema</button>
+                    <div class="form-group mapel-keterangan">
+                        <label for="ket_mulok">Keterangan:</label>
+                        <textarea id="ket_mulok" rows="2"></textarea>
+                    </div>
+                </div>
+                
+            </fieldset>
+            
+            <div class="form-rata-rata">
+                <p>Rata-Rata: <strong id="rataRataInput">0.00</strong></p>
+            </div>
+
+            <button type="submit" class="button-simpan" id="submitButton">Simpan Data</button>
+            <button type="button" class="button-batal" id="cancelButton" style="display:none;" onclick="resetForm()">Batal Edit</button>
+        </form>
+    </div>
+
+    <div id="printView" class="tab-content print-only">
+        </div>
+
+    <script>
+        let studentReports = [];
+
+        const mapelList = [
+            { key: "bindo", name: "Bahasa Indonesia" },
+            { key: "mat", name: "Matematika" },
+            { key: "ipa", name: "IPA" },
+            { key: "ips", name: "IPS" },
+            { key: "ppkn", name: "PP" },
+            { key: "seni", name: "Seni Budaya" },
+            { key: "pjok", name: "PJOK" },
+            { key: "agama", name: "Agama" },
+            { key: "bing", name: "Bahasa Inggris" },
+            { key: "sbdp", name: "SBdP" },
+            { key: "mulok", name: "Mulok" }
+        ];
+
+        // Fungsi untuk mengambil data sekolah (yang statis)
+        function getSchoolData() {
+            return {
+                nama_sekolah: document.getElementById('nama_sekolah').value,
+                alamat_sekolah: document.getElementById('alamat_sekolah').value,
+                tahun_ajaran: document.getElementById('tahun_ajaran').value,
+                fase: document.getElementById('fase').value,
+            };
+        }
+
+        // ------------------
+        // FUNGSI TABS & UTILITY
+        // ------------------
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            document.getElementById(tabId).classList.add('active');
+            const activeButton = document.querySelector(`.nav-tabs button[onclick="showTab('${tabId}')"]`);
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+        }
+
+        // ------------------
+        // FUNGSI INPUT DINAMIS TEMA
+        // ------------------
+        function addTemaInput(mapelKey, initialTema = '', initialNilai = '') {
+            const container = document.querySelector(`.tema-inputs[data-mapel="${mapelKey}"]`);
+            
+            const div = document.createElement('div');
+            div.className = 'tema-input-row';
+            div.innerHTML = `
+                <input type="text" name="${mapelKey}_tema[]" placeholder="Nama Tema" value="${initialTema}" required>
+                <input type="number" name="${mapelKey}_nilai[]" placeholder="Nilai (1-100)" min="0" max="100" value="${initialNilai}" oninput="updateAverage()" required>
+                <button type="button" class="remove-tema-button" onclick="this.closest('.tema-input-row').remove(); updateAverage();">✖️</button>
+            `;
+            container.appendChild(div);
+            
+            updateAverage();
+        }
+
+        function updateAverage() {
+            const nilaiInputs = document.querySelectorAll('.tema-input-row input[type="number"]');
+            let totalNilai = 0;
+            let count = 0;
+
+            nilaiInputs.forEach(input => {
+                const nilai = parseInt(input.value);
+                // PASTIKAN INPUT NILAI YANG KOSONG TIDAK DITAMBAH KE COUNT
+                if (input.closest('.tema-input-row') && input.closest('.tema-input-row').querySelector('input[type="text"]').value !== '' && !isNaN(nilai) && nilai >= 0 && nilai <= 100) {
+                    totalNilai += nilai;
+                    count++;
+                }
+            });
+
+            const rataRata = count > 0 ? (totalNilai / count).toFixed(2) : '0.00';
+            document.getElementById('rataRataInput').textContent = rataRata;
+            return parseFloat(rataRata);
+        }
+
+        // ------------------
+        // FUNGSI EDIT & RESET
+        // ------------------
+        function editReport(index) {
+            const report = studentReports[index];
+            if (!report) return;
+
+            // 1. ISI DATA SEKOLAH
+            const schoolDataToLoad = report.schoolData || getSchoolData(); 
+            document.getElementById('nama_sekolah').value = schoolDataToLoad.nama_sekolah || '';
+            document.getElementById('alamat_sekolah').value = schoolDataToLoad.alamat_sekolah || '';
+            document.getElementById('tahun_ajaran').value = schoolDataToLoad.tahun_ajaran || '';
+            document.getElementById('fase').value = schoolDataToLoad.fase || '';
+
+            // 2. Isi Data Siswa
+            document.getElementById('nama').value = report.nama;
+            document.getElementById('nis').value = report.nis;
+            document.getElementById('nisn').value = report.nisn;
+            document.getElementById('kelas').value = report.kelas;
+
+            // 3. Isi Data Mapel Dinamis dan Keterangan
+            mapelList.forEach(mapel => {
+                const container = document.querySelector(`.tema-inputs[data-mapel="${mapel.key}"]`);
+                const ketTextarea = document.getElementById(`ket_${mapel.key}`);
+                
+                container.innerHTML = ''; 
+
+                const mapelData = report.mapelData[mapel.key];
+                
+                if (mapelData && mapelData.details.length > 0) {
+                    mapelData.details.forEach(detail => {
+                        addTemaInput(mapel.key, detail.tema, detail.nilai);
+                    });
+                } else {
+                    // Tambahkan 1 input kosong jika tidak ada data tema
+                    addTemaInput(mapel.key); 
+                }
+
+                // Isi Keterangan Akhir
+                ketTextarea.value = mapelData.keteranganAkhir || '';
+            });
+
+            // 4. Set Mode Edit
+            document.getElementById('editIndex').value = index;
+            document.getElementById('submitButton').textContent = 'Simpan Perubahan';
+            document.getElementById('cancelButton').style.display = 'inline-block';
+            updateAverage();
+
+            // 5. Pindah ke tab input
+            showTab('input');
+        }
+
+        function resetForm() {
+            // Reset input data siswa dan sekolah
+            document.getElementById('inputForm').reset();
+            document.getElementById('editIndex').value = '-1';
+            document.getElementById('submitButton').textContent = 'Simpan Data';
+            document.getElementById('cancelButton').style.display = 'none';
+            document.getElementById('rataRataInput').textContent = '0.00';
+            
+            // Reset tema inputs ke kondisi awal (1 input kosong per mapel)
+            mapelList.forEach(mapel => {
+                const container = document.querySelector(`.tema-inputs[data-mapel="${mapel.key}"]`);
+                container.innerHTML = '';
+                addTemaInput(mapel.key); 
+                document.getElementById(`ket_${mapel.key}`).value = ''; // Clear keterangan
+            });
+            showTab('data'); 
+        }
+
+        // ------------------
+        // EVENT SIMPAN/UPDATE DATA (DIPERBAIKI)
+        // ------------------
+        const inputForm = document.getElementById('inputForm');
+
+        inputForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const editIndex = parseInt(document.getElementById('editIndex').value);
+            const schoolData = getSchoolData(); 
+
+            // Cek apakah data sekolah diisi (WAJIB)
+            if (!schoolData.nama_sekolah || !schoolData.tahun_ajaran) {
+                 alert('Data Sekolah (Nama Sekolah dan Tahun Ajaran) harus diisi!');
+                 return;
+            }
+
+            const newReport = {
+                // DATA SEKOLAH
+                schoolData: schoolData, 
+                // DATA SISWA
+                nama: document.getElementById('nama').value,
+                nis: document.getElementById('nis').value,
+                nisn: document.getElementById('nisn').value,
+                kelas: document.getElementById('kelas').value,
+                mapelData: {}
+            };
+
+            let totalNilaiSemuaMapel = 0;
+            let totalTemaCount = 0;
+            let formValid = true;
+
+            mapelList.forEach(mapel => {
+                const temaInputs = document.querySelectorAll(`.tema-inputs[data-mapel="${mapel.key}"] input[type="text"]`);
+                const nilaiInputs = document.querySelectorAll(`.tema-inputs[data-mapel="${mapel.key}"] input[type="number"]`);
+                const ketTextarea = document.getElementById(`ket_${mapel.key}`);
+                
+                const detailMapel = [];
+                let sumNilaiMapel = 0;
+                let countTemaMapel = 0;
+
+                // Loop melalui input tema dan nilai
+                temaInputs.forEach((temaInput, index) => {
+                    const nilai = parseInt(nilaiInputs[index].value);
+                    
+                    if (temaInput.value !== '' && (isNaN(nilai) || nilai < 0 || nilai > 100)) {
+                        alert(`Nilai untuk ${mapel.name} (Tema: ${temaInput.value}) tidak valid!`);
+                        formValid = false;
+                    }
+                    
+                    // Hanya simpan dan hitung tema yang sudah diisi namanya
+                    if (temaInput.value && !isNaN(nilai)) {
+                        detailMapel.push({
+                            tema: temaInput.value,
+                            nilai: nilai,
+                            keterangan: nilai >= 80 ? 'Tuntas' : 'Perlu Bimbingan'
+                        });
+                        sumNilaiMapel += nilai;
+                        countTemaMapel++;
+                        totalNilaiSemuaMapel += nilai;
+                        totalTemaCount++;
+                    }
+                });
+
+                newReport.mapelData[mapel.key] = {
+                    details: detailMapel,
+                    rataRataMapel: countTemaMapel > 0 ? (sumNilaiMapel / countTemaMapel).toFixed(2) : 'N/A',
+                    nilaiUtama: countTemaMapel > 0 ? sumNilaiMapel / countTemaMapel : 0,
+                    keteranganAkhir: ketTextarea.value 
+                };
+            });
+            
+            if (!formValid) return; // Hentikan proses simpan jika ada error
+
+            newReport.rata_rata_akhir = totalTemaCount > 0 ? (totalNilaiSemuaMapel / totalTemaCount).toFixed(2) : '0.00';
+            
+            if (editIndex > -1) {
+                studentReports[editIndex] = newReport;
+                alert('Data nilai siswa berhasil diperbarui!');
+            } else {
+                studentReports.push(newReport);
+                alert('Data nilai siswa berhasil disimpan!');
+            }
+
+            renderDataTable(); 
+            resetForm(); 
+        });
+
+        // ------------------
+        // FUNGSI HALAMAN DATA (Tabel)
+        // ------------------
+        function renderDataTable() {
+            const tableBody = document.getElementById('dataTable').querySelector('tbody');
+            tableBody.innerHTML = ''; 
+
+            studentReports.forEach((report, index) => {
+                const row = tableBody.insertRow();
+                row.insertCell().textContent = report.nama;
+                row.insertCell().textContent = report.nis;
+                row.insertCell().textContent = report.nisn;
+                row.insertCell().textContent = "Kelas " + report.kelas;
+                
+                // Kolom Nilai Mapel (rata-rata tema)
+                mapelList.forEach(mapel => {
+                    const cell = row.insertCell();
+                    cell.textContent = report.mapelData[mapel.key].rataRataMapel;
+                });
+                
+                row.insertCell().textContent = report.rata_rata_akhir;
+
+                // Tombol Aksi (Edit & Print)
+                const actionCell = row.insertCell();
+                actionCell.classList.add('action-cell');
+                
+                const editButton = document.createElement('button');
+                editButton.textContent = 'Edit';
+                editButton.className = 'button-edit';
+                editButton.onclick = () => editReport(index);
+                actionCell.appendChild(editButton);
+
+                const printButton = document.createElement('button');
+                printButton.textContent = 'Print Rapor';
+                printButton.className = 'button-print-perorangan';
+                printButton.onclick = () => showPrintView(report);
+                actionCell.appendChild(printButton);
+            });
+        }
+
+        // ------------------
+        // FUNGSI PRINT PERORANGAN
+        // ------------------
+        function showPrintView(report) {
+            const printView = document.getElementById('printView');
+            const school = report.schoolData || getSchoolData();
+
+            // Buat baris tabel untuk detail nilai per tema
+            const tableRows = mapelList.map((mapel, index) => {
+                const mapelDetails = report.mapelData[mapel.key].details;
+                const mapelKet = report.mapelData[mapel.key].keteranganAkhir || '-';
+                
+                if (mapelDetails.length === 0) {
+                    // Jika tidak ada tema yang diinput
+                    return `
+                        <tr>
+                            <td>${index + 1}.</td>
+                            <td class="mapel-name">${mapel.name}</td>
+                            <td>-</td>
+                            <td>N/A</td>
+                            <td rowspan="1">${mapelKet}</td>
+                        </tr>
+                    `;
+                }
+                
+                // Jika ada tema yang diinput
+                let html = mapelDetails.map((item, subIndex) => {
+                    const isFirstRow = subIndex === 0;
+                    return `
+                        <tr>
+                            <td>${isFirstRow ? index + 1 + '.' : ''}</td>
+                            <td class="mapel-name">${isFirstRow ? mapel.name : ''}</td>
+                            <td>${item.tema}</td>
+                            <td>${item.nilai}</td>
+                            ${isFirstRow ? `<td rowspan="${mapelDetails.length}">${mapelKet}</td>` : ''}
+                        </tr>
+                    `;
+                }).join('');
+                return html;
+            }).join('');
+
+            printView.innerHTML = `
+                <div class="raport-header">
+                    <h1 class="print-title">PEKAN EVALUASI TENGAH SEMESTER GANJIL</h1>
+                    
+                    <div class="info-container-split">
+                        <div class="school-info">
+                            <p><strong>Nama Sekolah:</strong> ${school.nama_sekolah}</p>
+                            <p><strong>Alamat Sekolah:</strong> ${school.alamat_sekolah}</p>
+                            <p><strong>Tahun Ajaran:</strong> ${school.tahun_ajaran}</p>
+                            <p><strong>Fase:</strong> ${school.fase}</p>
+                        </div>
+                        <div class="student-info">
+                            <p><strong>Nama Siswa:</strong> ${report.nama}</p>
+                            <p><strong>Kelas:</strong> Kelas ${report.kelas}</p>
+                            <p><strong>NIS/NISN:</strong> ${report.nis} / ${report.nisn}</p>
+                            <p><strong>Semester:</strong> Ganjil</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Rincian Nilai Per Tema dan Keterangan</h3>
+                <div class="nilai-detail-table-container">
+                    <table class="nilai-detail-table">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Mata Pelajaran</th>
+                                <th>Tema</th>
+                                <th>Nilai (Per Tema)</th>
+                                <th>Keterangan Akhir Mapel</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tableRows}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="rata-rata-print">
+                    <p><strong>Rata-Rata Nilai Keseluruhan Siswa:</strong> <span class="avg-score">${report.rata_rata_akhir}</span></p>
+                </div>
+
+                <div class="print-actions">
+                    <button class="button-print-final" onclick="window.print()">Cetak Rapor Berwarna</button>
+                    <button class="button-back" onclick="showTab('data')">Kembali ke Data Siswa</button>
+                </div>
+            `;
+            showTab('printView');
+        }
+
+        // Inisialisasi:
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDataTable();
+            showTab('data');
+            // Tambahkan satu input tema awal untuk setiap mapel agar form tidak kosong
+            mapelList.forEach(mapel => {
+                addTemaInput(mapel.key);
+            });
+        });
+    </script>
+</body>
+</html>

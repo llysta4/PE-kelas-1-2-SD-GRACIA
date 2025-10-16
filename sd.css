@@ -331,7 +331,7 @@ legend {
     margin-bottom: 20px;
 }
 
-/* Tata Letak 2 Kolom untuk Info Sekolah dan Siswa */
+/* Tata Letak 2 Kolom untuk Info Sekolah dan Siswa (Tampilan Normal) */
 .info-container-split {
     display: flex;
     justify-content: space-between;
@@ -382,6 +382,8 @@ legend {
     font-size: 1.2em;
     font-weight: bold;
     color: #333;
+    /* >>> PERBAIKAN: Sembunyikan Rata-Rata di Tampilan Normal/Print Preview Raport <<< */
+    display: none; 
 }
 
 .avg-score {
@@ -453,9 +455,17 @@ legend {
 }
 
 /* ---------------------------------
-   Media Print (Cetak Berwarna)
+   Media Print (Cetak Berwarna) - DENGAN OPTIMALISASI AGAR TIDAK TERPOTONG
    --------------------------------- */
 @media print {
+    
+    /* 1. KONTROL UKURAN FONT DASAR UNTUK MENGHEMAT RUANG */
+    body {
+        font-size: 9pt !important; /* Kurangi ukuran font agar lebih banyak muat */
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
     /* Sembunyikan semua yang tidak perlu di cetak */
     body > :not(#printView) {
         display: none !important;
@@ -466,32 +476,83 @@ legend {
         display: block !important;
         position: relative;
         padding: 0;
-        margin: 0;
+        margin: 0; /* Pastikan margin halaman 0 */
         width: 100%;
         box-shadow: none;
         background-color: white !important;
     }
+    
+    /* PERBAIKAN: Sembunyikan Rata-Rata Saat Dicetak */
+    .rata-rata-print {
+        display: none !important;
+    }
 
-    /* ** PERBAIKAN UTAMA: MEMAKSA TATA LETAK 2 KOLOM UNTUK PRINT ** */
+    /* ****************************************************** */
+    /* ** PERBAIKAN TATA LETAK 2 KOLOM (FLOAT) & OPTIMALISASI RUANG** */
+    /* ****************************************************** */
     .info-container-split {
-        display: flex !important; 
-        justify-content: space-between !important;
+        /* Ganti Flex menjadi Block dan pakai float untuk anak elemen */
+        display: block !important; 
+        overflow: hidden !important; 
         width: 100% !important;
-        gap: 20px !important;
+        padding-top: 5px !important; /* Kurangi padding atas */
         border-top: 1px solid #87CEEB !important;
-        padding-top: 15px !important;
         
-        /* WAJIB: Memaksa browser mencetak warna dan tata letak */
         -webkit-print-color-adjust: exact !important;
         color-adjust: exact !important;
     }
     
-    .school-info, .student-info {
-        flex: 1 !important; /* Memastikan keduanya berbagi ruang */
+    .school-info {
+        /* Kolom Kiri: Paksa 50% dan float ke kiri */
+        float: left !important;
+        width: 50% !important;
+        box-sizing: border-box !important;
+        padding-right: 10px !important; /* Kurangi padding kanan */
+        padding-left: 0 !important; 
+    }
+
+    .student-info {
+        /* Kolom Kanan: Paksa 50% dan float ke kanan */
+        float: right !important;
+        width: 50% !important;
+        box-sizing: border-box !important;
+        padding-left: 10px !important; /* Kurangi padding kiri */
+        padding-right: 0 !important; 
     }
     
+    /* Optimalkan jarak dalam teks info */
+    .school-info p, .student-info p {
+        margin: 1px 0 !important;
+        font-size: 9pt !important;
+    }
+
+    /* PERBAIKAN: Hapus judul "Rincian Nilai Per Tema dan Keterangan" */
+    #printView h3 {
+        display: none !important;
+    }
+    
+    /* Optimalkan header rapor */
+    .raport-header {
+        margin-bottom: 10px !important; 
+        padding: 10px !important;
+    }
+
+    /* 2. OPTIMALISASI TABEL UNTUK MENGHEMAT RUANG */
+    .nilai-detail-table {
+        margin-top: 5px !important;
+    }
+    
+    .nilai-detail-table th, .nilai-detail-table td {
+        padding: 6px 4px !important; /* Kurangi padding tabel */
+        font-size: 9pt !important; /* Pastikan font tabel juga kecil */
+        /* Pastikan pembungkusnya lebar penuh */
+        width: 100% !important; 
+    }
+    
+    /* ****************************************************** */
+    
     /* Penting untuk memastikan warna dan tata letak dicetak */
-    .raport-header, .rata-rata-print, .nilai-detail-table th {
+    .raport-header, .nilai-detail-table th {
         -webkit-print-color-adjust: exact !important;
         color-adjust: exact !important;
     }
@@ -509,12 +570,7 @@ legend {
         background-color: #4CAF50 !important; 
         color: white !important;
     }
-
-    .rata-rata-print {
-        background-color: #FFD700 !important; 
-        color: #333 !important;
-    }
-
+    
     /* Sembunyikan tombol aksi print di hasil cetak */
     .print-actions {
         display: none !important;

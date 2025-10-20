@@ -5,7 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PEKAN EVALUASI TENGAH SEMESTER GANJIL</title>
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="sd.css"> 
+    <style>
+        body { font-family: 'Varela Round', sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 0; }
+        .navbar { background-color: #3f51b5; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .nav-title { font-size: 1.5em; font-weight: bold; }
+        .nav-tabs { display: flex; }
+        .tab-button { background-color: #5c70c5; color: white; border: none; padding: 10px 15px; cursor: pointer; margin-left: 5px; border-radius: 5px 5px 0 0; transition: background-color 0.3s; }
+        .tab-button.active { background-color: #ffffff; color: #3f51b5; font-weight: bold; }
+        .tab-content { padding: 20px; display: none; background-color: white; min-height: 80vh; }
+        .tab-content.active { display: block; }
+
+        /* Form Styling */
+        #inputForm fieldset { border: 1px solid #ccc; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+        #inputForm legend { font-weight: bold; color: #3f51b5; padding: 0 10px; }
+        .form-group { margin-bottom: 15px; display: flex; flex-direction: column; }
+        .form-group label { margin-bottom: 5px; font-weight: 600; color: #555; }
+        #inputForm input[type="text"], #inputForm input[type="number"], #inputForm select, #inputForm textarea { 
+            padding: 10px; border: 1px solid #ddd; border-radius: 5px; width: 100%; box-sizing: border-box; 
+        }
+        .data-sekolah-group, .data-siswa-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+
+        /* Mapel Input Dynamic Styling */
+        .mapel-container { border: 1px dashed #b5c4f2; padding: 15px; margin-top: 15px; border-radius: 5px; background-color: #f8faff; }
+        .mapel-container h4 { color: #3f51b5; margin-top: 0; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+        .tema-input-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: center; }
+        .tema-input-row input[type="text"] { flex: 3; }
+        .tema-input-row input[type="number"] { flex: 1; min-width: 80px; }
+        .remove-tema-button { background-color: #ff5252; color: white; border: none; padding: 8px; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }
+        .remove-tema-button:hover { background-color: #e04040; }
+        .add-tema-button { background-color: #4caf50; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 5px; margin-top: 10px; }
+
+        /* Action Buttons */
+        .button-simpan, .button-batal { padding: 12px 25px; margin-right: 10px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: background-color 0.3s; }
+        .button-simpan { background-color: #00bcd4; color: white; }
+        .button-simpan:hover { background-color: #00acc1; }
+        .button-batal { background-color: #ff9800; color: white; }
+        .button-batal:hover { background-color: #fb8c00; }
+        
+        .form-rata-rata { margin-top: 20px; padding: 15px; background-color: #e8eaf6; border-radius: 5px; font-size: 1.1em; }
+        .form-rata-rata strong { color: #3f51b5; font-size: 1.2em; }
+
+        /* Data Table Styling */
+        .table-responsive { overflow-x: auto; }
+        #dataTable { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9em; }
+        #dataTable th, #dataTable td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        #dataTable th { background-color: #f2f2f2; color: #3f51b5; font-weight: bold; }
+        #dataTable tr:nth-child(even) { background-color: #f9f9f9; }
+        #dataTable .action-cell { min-width: 150px; }
+        .button-edit, .button-print-perorangan { padding: 5px 10px; margin: 2px; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8em; }
+        .button-edit { background-color: #ffc107; color: #333; }
+        .button-print-perorangan { background-color: #9c27b0; color: white; }
+
+        /* Print View Styling */
+        .print-only { background-color: white; padding: 30px; }
+        .raport-header { border-bottom: 2px solid #333; padding-bottom: 15px; margin-bottom: 20px; }
+        .print-title { text-align: center; color: #3f51b5; margin-top: 0; }
+        .info-container-split { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .info-container-split p { margin: 5px 0; }
+        
+        .nilai-detail-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .nilai-detail-table th, .nilai-detail-table td { border: 1px solid #333; padding: 8px; text-align: left; vertical-align: top; }
+        .nilai-detail-table th { background-color: #e0e0e0; text-align: center; }
+        .nilai-detail-table .mapel-name { font-weight: bold; }
+
+        .rata-rata-print { margin-top: 30px; padding: 15px; border: 2px solid #3f51b5; border-radius: 5px; font-size: 1.2em; text-align: right; }
+        .avg-score { font-size: 1.5em; color: #e91e63; font-weight: bold; }
+        .print-actions { text-align: center; margin-top: 30px; }
+        .button-print-final, .button-back { padding: 10px 20px; margin: 5px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; }
+        .button-print-final { background-color: #f44336; color: white; }
+        .button-back { background-color: #607d8b; color: white; }
+
+        @media print {
+            .navbar, .tab-content:not(#printView), .print-actions, .action-cell { display: none !important; }
+            #printView { display: block !important; width: 100%; margin: 0; padding: 0; }
+            body { background-color: white; }
+            .info-container-split { grid-template-columns: 1fr; }
+            .nilai-detail-table th, .nilai-detail-table td { border-color: #000; }
+        }
+    </style>
 </head>
 <body>
 
@@ -207,6 +284,7 @@
         </div>
 
     <script>
+        // Data utama yang akan di-save
         let studentReports = [];
 
         // PERUBAHAN MAPEL LIST SESUAI PERMINTAAN
@@ -224,6 +302,43 @@
             { key: "pramuka", name: "PRAMUKA" } // Khusus Kls 2
         ];
 
+        // ------------------
+        // FUNGSI PENYIMPANAN DATA PERMANEN (LOCAL STORAGE) 💾
+        // ------------------
+
+        // Menyimpan data studentReports dan data sekolah ke Local Storage
+        function saveToStorage() {
+            // Ambil data sekolah terbaru dari form saat ini
+            const schoolData = getSchoolData();
+            
+            // Simpan student reports
+            localStorage.setItem('studentReportsData', JSON.stringify(studentReports));
+            // Simpan juga data sekolah agar tidak perlu diinput ulang setiap kali
+            localStorage.setItem('schoolData', JSON.stringify(schoolData));
+        }
+
+        // Memuat data dari Local Storage
+        function loadFromStorage() {
+            const savedReports = localStorage.getItem('studentReportsData');
+            if (savedReports) {
+                studentReports = JSON.parse(savedReports);
+            }
+
+            // Muat data sekolah ke form input
+            const savedSchoolData = localStorage.getItem('schoolData');
+            if (savedSchoolData) {
+                const data = JSON.parse(savedSchoolData);
+                document.getElementById('nama_sekolah').value = data.nama_sekolah || '';
+                document.getElementById('alamat_sekolah').value = data.alamat_sekolah || '';
+                document.getElementById('tahun_ajaran').value = data.tahun_ajaran || '';
+                document.getElementById('fase').value = data.fase || '';
+            }
+        }
+
+        // ------------------
+        // FUNGSI UTAMA LAINNYA
+        // ------------------
+        
         // Fungsi untuk mengambil data sekolah (yang statis)
         function getSchoolData() {
             return {
@@ -265,22 +380,19 @@
                 <input type="number" name="${mapelKey}_nilai[]" placeholder="Nilai (1-100)" min="0" max="100" value="${initialNilai}" oninput="updateAverage()">
                 <button type="button" class="remove-tema-button" onclick="this.closest('.tema-input-row').remove(); updateAverage();">✖️</button>
             `;
-            // Catatan: Atribut 'required' pada input Nama Tema dan Nilai telah DIHAPUS.
-            // Validasi diubah di fungsi submit untuk hanya memeriksa pasangan tema/nilai.
-
+            
             container.appendChild(div);
             
-            // Tambahkan satu input kosong jika ini adalah input pertama kali
+            // Pastikan selalu ada minimal 1 input kosong saat form di-reset atau inisialisasi
             if(container.children.length === 0) {
-                 // Tambahkan satu input kosong lagi jika container kosong setelah penghapusan
-                const newDiv = document.createElement('div');
-                newDiv.className = 'tema-input-row';
-                newDiv.innerHTML = `
-                    <input type="text" name="${mapelKey}_tema[]" placeholder="Nama Tema" value=""> 
-                    <input type="number" name="${mapelKey}_nilai[]" placeholder="Nilai (1-100)" min="0" max="100" value="" oninput="updateAverage()">
-                    <button type="button" class="remove-tema-button" onclick="this.closest('.tema-input-row').remove(); updateAverage();">✖️</button>
-                `;
-                container.appendChild(newDiv);
+                 const newDiv = document.createElement('div');
+                 newDiv.className = 'tema-input-row';
+                 newDiv.innerHTML = `
+                     <input type="text" name="${mapelKey}_tema[]" placeholder="Nama Tema" value=""> 
+                     <input type="number" name="${mapelKey}_nilai[]" placeholder="Nilai (1-100)" min="0" max="100" value="" oninput="updateAverage()">
+                     <button type="button" class="remove-tema-button" onclick="this.closest('.tema-input-row').remove(); updateAverage();">✖️</button>
+                 `;
+                 container.appendChild(newDiv);
             }
 
             updateAverage();
@@ -375,6 +487,9 @@
                 document.getElementById(`ket_${mapel.key}`).value = ''; // Clear keterangan
             });
             showTab('data'); 
+            
+            // Muat ulang data sekolah yang tersimpan agar tidak hilang saat reset
+            loadFromStorage();
         }
 
         // ------------------
@@ -386,7 +501,6 @@
             e.preventDefault();
 
             // 1. VALIDASI DATA IDENTITAS (WAJIB)
-            // Cek elemen wajib diisi selain mapel
             const requiredFields = ['nama_sekolah', 'alamat_sekolah', 'tahun_ajaran', 'fase', 'nama', 'nis', 'nisn', 'kelas'];
             for (const field of requiredFields) {
                 const input = document.getElementById(field);
@@ -401,7 +515,7 @@
             const schoolData = getSchoolData(); 
 
             const newReport = {
-                // DATA SEKOLAH & SISWA (SUDAH DIPASTIKAN TERISI OLEH VALIDASI DI ATAS)
+                // DATA SEKOLAH & SISWA
                 schoolData: schoolData, 
                 nama: document.getElementById('nama').value,
                 nis: document.getElementById('nis').value,
@@ -433,17 +547,17 @@
                         alert(`Mohon lengkapi Nilai (1-100) untuk Tema "${temaInput.value.trim()}" pada Mapel ${mapel.name}!`);
                         formValid = false;
                         nilaiInput.focus();
-                        return; // Keluar dari forEach inner
+                        return; 
                     } 
                     // VALIDASI PASANGAN: Jika Nilai diisi, Tema juga harus diisi.
                     else if (nilaiInput.value.trim() !== '' && temaInput.value.trim() === '') {
                         alert(`Mohon lengkapi Nama Tema untuk Nilai ${nilaiInput.value.trim()} pada Mapel ${mapel.name}!`);
                         formValid = false;
                         temaInput.focus();
-                        return; // Keluar dari forEach inner
+                        return; 
                     }
                     
-                    if (!formValid) return; // Keluar jika ada error dari inner loop
+                    if (!formValid) return; 
 
                     // Hanya simpan dan hitung tema yang sudah diisi namanya DAN nilainya valid
                     if (temaInput.value.trim() && !isNaN(nilai)) {
@@ -459,7 +573,7 @@
                     }
                 });
 
-                if (!formValid) return; // Keluar dari forEach mapel
+                if (!formValid) return; 
 
                 newReport.mapelData[mapel.key] = {
                     details: detailMapel,
@@ -469,10 +583,11 @@
                 };
             });
             
-            if (!formValid) return; // Hentikan proses simpan jika ada error
+            if (!formValid) return; 
 
             newReport.rata_rata_akhir = totalTemaCount > 0 ? (totalNilaiSemuaMapel / totalTemaCount).toFixed(2) : '0.00';
             
+            // 3. SIMPAN/UPDATE DATA
             if (editIndex > -1) {
                 studentReports[editIndex] = newReport;
                 alert('Data nilai siswa berhasil diperbarui!');
@@ -480,6 +595,9 @@
                 studentReports.push(newReport);
                 alert('Data nilai siswa berhasil disimpan!');
             }
+
+            // Panggil fungsi SAVE TO STORAGE setelah setiap perubahan
+            saveToStorage(); 
 
             renderDataTable(); 
             resetForm(); 
@@ -638,14 +756,22 @@
 
         // Inisialisasi:
         document.addEventListener('DOMContentLoaded', () => {
-            // Perbarui list mapel sebelum render
+            // 1. MUAT DATA TERSIMPAN 🚀
+            loadFromStorage(); 
+            
+            // 2. Tampilkan data dan tab
             renderDataTable();
             showTab('data');
-            // Tambahkan satu input tema awal untuk setiap mapel agar form tidak kosong
+
+            // 3. Tambahkan satu input tema awal untuk setiap mapel agar form tidak kosong
             mapelList.forEach(mapel => {
-                addTemaInput(mapel.key);
+                const container = document.querySelector(`.tema-inputs[data-mapel="${mapel.key}"]`);
+                if (container.children.length === 0) {
+                     addTemaInput(mapel.key);
+                }
             });
         });
     </script>
 </body>
+
 </html>

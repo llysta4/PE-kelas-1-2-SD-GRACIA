@@ -196,7 +196,18 @@ textarea:focus {
     color: white;
     border: none;
     padding: 8px;
-    cursor: pointer;
+    cursor: pointer;@media print {
+    /* ... kode lain ... */
+
+    .info-container-split {
+        /* Kembali ke tumpukan saat cetak */
+        flex-direction: column; /* INI KUNCINYA */
+        gap: 0;
+    }
+    .school-info, .student-info {
+        flex-basis: auto;
+    }
+}
     border-radius: 4px;
     font-weight: bold;
     transition: background-color 0.2s;
@@ -489,3 +500,4 @@ h3 {
         flex-basis: auto;
     }
 }
+

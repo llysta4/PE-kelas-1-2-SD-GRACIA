@@ -1,475 +1,11 @@
-/* sd.css */
-
 /* -------------------- */
-/* Global & Body Setup */
-/* -------------------- */
-:root {
-    --primary-color: #3f51b5; /* Indigo */
-    --primary-dark: #303f9f;
-    --accent-color: #ff9800; /* Amber */
-    --light-bg: #f5f5f5;
-    --text-color: #333;
-    --border-color: #ddd;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Varela Round', sans-serif;
-    background-color: var(--light-bg);
-    color: var(--text-color);
-    line-height: 1.6;
-}
-
-/* -------------------- */
-/* Navbar & Tabs */
-/* -------------------- */
-.navbar {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 10px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.nav-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.nav-tabs {
-    display: flex;
-    width: 100%;
-    max-width: 600px;
-}
-
-.tab-button {
-    flex-grow: 1;
-    padding: 10px 15px;
-    border: none;
-    background-color: var(--primary-dark);
-    color: white;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s, transform 0.1s;
-    border-radius: 5px 5px 0 0;
-    margin: 0 2px;
-}
-
-.tab-button:hover {
-    background-color: #536dfe;
-}
-
-.tab-button.active {
-    background-color: var(--accent-color);
-    color: var(--text-color);
-    font-weight: bold;
-    transform: translateY(-2px);
-}
-
-/* -------------------- */
-/* Content & Form Layout */
-/* -------------------- */
-.tab-content {
-    display: none;
-    padding: 20px;
-    max-width: 1000px;
-    margin: 20px auto;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-}
-
-.tab-content.active {
-    display: block;
-}
-
-h2 {
-    color: var(--primary-dark);
-    border-bottom: 2px solid var(--accent-color);
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-
-/* Fieldset Styling */
-fieldset {
-    border: 1px solid var(--border-color);
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 6px;
-}
-
-legend {
-    font-weight: bold;
-    color: var(--primary-dark);
-    padding: 0 10px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group label {
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="number"],
-select,
-textarea {
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    font-size: 1rem;
-    transition: border-color 0.3s;
-    width: 100%; /* Default to full width for better mobile display */
-}
-
-input[type="text"]:focus,
-input[type="number"]:focus,
-select:focus,
-textarea:focus {
-    border-color: var(--primary-color);
-    outline: none;
-}
-
-/* Responsive Form Grid */
-#inputForm {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.data-sekolah-group,
-.data-siswa-group {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
-}
-
-.nilai-mapel-group-dynamic {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-.mapel-container {
-    padding: 15px;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-    background-color: #fafafa;
-}
-
-.mapel-container h4 {
-    color: var(--primary-color);
-    margin-bottom: 10px;
-    border-bottom: 1px dashed #ccc;
-    padding-bottom: 5px;
-}
-
-/* Dinamic Tema Inputs */
-.tema-input-row {
-    display: grid;
-    grid-template-columns: 3fr 1fr 50px; /* Nama Tema | Nilai | Tombol Hapus */
-    gap: 10px;
-    margin-bottom: 10px;
-    align-items: center;
-}
-
-.tema-input-row input[type="text"],
-.tema-input-row input[type="number"] {
-    width: 100%;
-}
-
-.remove-tema-button {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 8px;
-    cursor: pointer;@media print {
-    /* ... kode lain ... */
-
-    .info-container-split {
-        /* Kembali ke tumpukan saat cetak */
-        flex-direction: column; /* INI KUNCINYA */
-        gap: 0;
-    }
-    .school-info, .student-info {
-        flex-basis: auto;
-    }
-}
-    border-radius: 4px;
-    font-weight: bold;
-    transition: background-color 0.2s;
-}
-
-.remove-tema-button:hover {
-    background-color: #d32f2f;
-}
-
-.add-tema-button {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    margin-top: 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-weight: bold;
-    transition: background-color 0.2s;
-}
-
-.add-tema-button:hover {
-    background-color: #388e3c;
-}
-
-.mapel-keterangan textarea {
-    min-height: 80px;
-    resize: vertical;
-}
-
-/* Rata-Rata Display */
-.form-rata-rata {
-    padding: 15px;
-    background-color: var(--accent-color);
-    border-radius: 6px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-align: center;
-    color: var(--text-color);
-}
-
-.form-rata-rata strong {
-    font-size: 1.5rem;
-    color: var(--primary-dark);
-}
-
-/* Action Buttons */
-.button-simpan,
-.button-batal {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-right: 10px;
-    transition: background-color 0.3s;
-}
-
-.button-simpan {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-.button-simpan:hover {
-    background-color: var(--primary-dark);
-}
-
-.button-batal {
-    background-color: #9e9e9e;
-    color: white;
-}
-
-.button-batal:hover {
-    background-color: #757575;
-}
-
-/* -------------------- */
-/* Data Table */
-/* -------------------- */
-.table-responsive {
-    overflow-x: auto;
-}
-
-#dataTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
-
-#dataTable th,
-#dataTable td {
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    text-align: left;
-    white-space: nowrap;
-}
-
-#dataTable thead th {
-    background-color: var(--primary-color);
-    color: white;
-    font-weight: bold;
-    position: sticky;
-    top: 0;
-}
-
-#dataTable tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.action-cell button {
-    margin-right: 5px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 0.85rem;
-}
-
-.button-edit {
-    background-color: var(--accent-color);
-    color: var(--text-color);
-}
-
-.button-edit:hover {
-    background-color: #fb8c00;
-}
-
-.button-print-perorangan {
-    background-color: #2196f3; /* Blue */
-    color: white;
-}
-
-.button-print-perorangan:hover {
-    background-color: #1e88e5;
-}
-
-/* -------------------- */
-/* Print View (Rapor) Styles */
-/* -------------------- */
-.print-only {
-    /* Style untuk area cetak */
-    padding: 30px;
-}
-
-.raport-header {
-    border-bottom: 3px double var(--text-color);
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-}
-
-.print-title {
-    text-align: center;
-    color: var(--primary-dark);
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-}
-
-.info-container-split {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-.school-info, .student-info {
-    flex-basis: 50%;
-}
-
-.school-info p, .student-info p {
-    margin-bottom: 5px;
-}
-
-h3 {
-    margin-top: 30px;
-    margin-bottom: 15px;
-    color: var(--primary-dark);
-}
-
-.nilai-detail-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-.nilai-detail-table th,
-.nilai-detail-table td {
-    border: 1px solid var(--text-color);
-    padding: 8px 12px;
-    text-align: left;
-    vertical-align: top;
-}
-
-.nilai-detail-table thead th {
-    background-color: #e0e0e0;
-    font-weight: bold;
-    text-align: center;
-}
-
-.nilai-detail-table td:nth-child(1) { width: 5%; text-align: center; } /* No. */
-.nilai-detail-table td:nth-child(2) { width: 25%; font-weight: bold; } /* Mapel */
-.nilai-detail-table td:nth-child(4) { width: 10%; text-align: center; } /* Nilai */
-.nilai-detail-table td:nth-child(5) { width: 40%; } /* Keterangan */
-
-.mapel-name {
-    /* Untuk sel nama mapel, agar hanya muncul sekali */
-    font-weight: bold;
-    color: var(--primary-dark);
-}
-
-.rata-rata-print {
-    text-align: right;
-    font-size: 1.3rem;
-    padding: 10px;
-    border-top: 2px solid var(--text-color);
-}
-
-.avg-score {
-    color: var(--primary-color);
-    font-size: 1.6rem;
-}
-
-.print-actions {
-    text-align: center;
-    margin-top: 30px;
-}
-
-.button-print-final, .button-back {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    margin: 0 5px;
-    transition: background-color 0.3s;
-}
-
-.button-print-final {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-.button-print-final:hover {
-    background-color: var(--primary-dark);
-}
-
-.button-back {
-    background-color: #607d8b; /* Blue Grey */
-    color: white;
-}
-
-.button-back:hover {
-    background-color: #455a64;
-}
-
-/* -------------------- */
-/* MEDIA PRINT (Hide unnecessary elements) */
+/* MEDIA PRINT (Optimasi 1 Halaman & Tumpukan Vertikal) */
 /* -------------------- */
 @media print {
     body {
         background-color: white;
         color: black;
+        font-size: 9.5pt; /* Font size lebih kecil untuk memadatkan */
     }
     .navbar, .tab-button, #data, #input, .print-actions, .action-cell {
         display: none !important;
@@ -478,26 +14,64 @@ h3 {
         display: block !important;
         max-width: none;
         margin: 0;
-        padding: 0;
+        padding: 10px; /* Padding minimal di kertas */
         box-shadow: none;
-        font-size: 11pt; /* Font size for printing */
     }
     
+    /* HILANGKAN JUDUL RINCIAN NILAI ("Rincian Nilai Per Tema dan Keterangan") */
+    h3 {
+        display: none !important;
+    }
+
+    /* OPTIMASI HEADER AGAR JADI 1 KOLOM */
+    .raport-header {
+        padding-bottom: 5px; 
+        margin-bottom: 5px; 
+        border-bottom: 2px solid var(--text-color);
+    }
+    .print-title {
+        font-size: 1.1em; 
+        margin-bottom: 5px;
+    }
+
+    .info-container-split {
+        /* KUNCI: Dipaksa menjadi kolom vertikal */
+        display: flex !important;
+        flex-direction: column !important; 
+        gap: 0;
+        font-size: 9pt; 
+        line-height: 1.2;
+    }
+    .school-info, .student-info {
+        flex-basis: auto;
+        padding: 0;
+    }
+    .school-info p, .student-info p {
+        margin: 0; 
+        line-height: 1.2;
+    }
+
+    /* Pemadatan Tabel Nilai */
     .nilai-detail-table {
+        margin-top: 5px;
+        font-size: 8.5pt;
         page-break-inside: auto;
+    }
+    .nilai-detail-table th, .nilai-detail-table td {
+        padding: 3px 5px;
+        border-color: #000;
     }
     .nilai-detail-table tr {
         page-break-inside: avoid;
         page-break-after: auto;
     }
-
-    .info-container-split {
-        /* Kembali ke tumpukan saat cetak */
-        flex-direction: column;
-        gap: 0;
+    
+    .rata-rata-print { 
+        font-size: 0.9em; 
+        padding: 5px;
+        margin-top: 5px;
     }
-    .school-info, .student-info {
-        flex-basis: auto;
+    .avg-score {
+        font-size: 1.2em;
     }
 }
-
